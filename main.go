@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"net"
 	"runtime"
 	"syscall"
 
@@ -127,7 +128,23 @@ func cmdAdd(args *skel.CmdArgs) error {
 		return err
 	}
 	//Setup a IP address
-	return nil
+	err = netns.Do(func(hostNS ns.NetNS) error {
+		// create the veth pair in the container and move host end into host netns
+
+		link, err := netlink.LinkByName(args.IfName)
+		if err != nil {
+			return err
+		}
+		ipv4Addr, ipv4Net, err := net.ParseCIDR(sb.IP)
+		addr := &netlink.Addr{IPNet: ipv4Net, Label: ""}
+		ipv4Net.IP = ipv4Addr
+		if err = netlink.AddrAdd(link, addr); err != nil {
+			return fmt.Errorf("failed to add IP addr %v to %q: %v", ipv4Net, args.IfName, err)
+		}
+		return nil
+	})
+
+	return err
 }
 
 func cmdDel(args *skel.CmdArgs) error {

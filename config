@@ -1,5 +1,5 @@
 {
 	"name": "mynet",
 	"BridgeName": "test",
-	"IP": "1.2.3.4"
+	"IP": "192.0.2.1/24"
 }

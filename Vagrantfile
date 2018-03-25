@@ -19,6 +19,15 @@ Vagrant.configure("2") do |config|
     export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
     mkdir -p /home/vagrant/go/src
     rm -rf /home/vagrant/go1.9.1.linux-amd64.tar.gz
+    # Download CNI and CNI plugins binaries
+    wget --quiet https://github.com/containernetworking/cni/releases/download/v0.6.0/cni-amd64-v0.6.0.tgz
+    wget --quiet https://github.com/containernetworking/plugins/releases/download/v0.6.0/cni-plugins-amd64-v0.6.0.tgz
+    sudo mkdir -p /opt/cni/bin
+    sudo mkdir -p /etc/cni/net.d
+    sudo tar -zxf cni-amd64-v0.6.0.tgz -C /opt/cni/bin
+    sudo tar -zxf cni-plugins-amd64-v0.6.0.tgz -C /opt/cni/bin
+    rm -rf /home/vagrant/cni-plugins-amd64-v0.6.0.tgz /home/vagrant/cni-amd64-v0.6.0.tgz
+
   SHELL
 
   config.vm.provider :virtualbox do |v|

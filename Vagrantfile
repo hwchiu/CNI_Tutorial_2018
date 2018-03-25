@@ -30,6 +30,8 @@ Vagrant.configure("2") do |config|
 
     #Clone this example repository   
     git clone https://github.com/hwchiu/CNI_Tutorial_2018 go/src/github.com/hwchiu/CNI_Tutorial_2018
+    go get -u github.com/kardianos/govendor
+    govendor sync
   SHELL
 
   config.vm.provider :virtualbox do |v|

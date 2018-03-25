@@ -31,6 +31,30 @@
 			"path": "github.com/containernetworking/cni/pkg/version",
 			"revision": "a700ea864b5f1852d179ce83e8bc169f0b4a0ef4",
 			"revisionTime": "2018-03-07T16:29:29Z"
+		},
+		{
+			"checksumSHA1": "4e6zimNtN3Qh2EIBu4JFDwP2GlY=",
+			"path": "github.com/vishvananda/netlink",
+			"revision": "41009d533ba0788a139b0b6ef38923a23b3766d3",
+			"revisionTime": "2018-03-16T17:57:21Z"
+		},
+		{
+			"checksumSHA1": "ruyvoTw+RLjQHIufHJ59vuDydJA=",
+			"path": "github.com/vishvananda/netlink/nl",
+			"revision": "41009d533ba0788a139b0b6ef38923a23b3766d3",
+			"revisionTime": "2018-03-16T17:57:21Z"
+		},
+		{
+			"checksumSHA1": "qf37dJzNS2iXycH62ukEw+cleZY=",
+			"path": "github.com/vishvananda/netns",
+			"revision": "be1fbeda19366dea804f00efff2dd73a1642fdcc",
+			"revisionTime": "2017-11-10T22:28:10Z"
+		},
+		{
+			"checksumSHA1": "dRWRXOISZjU/zZ0kGTu0pXAFVgA=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "91ee8cde435411ca3f1cd365e8f20131aed4d0a1",
+			"revisionTime": "2018-03-22T14:10:41Z"
 		}
 	],
 	"rootPath": "github.com/hwchiu/CNI_Tutorial_2018"

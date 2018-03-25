@@ -8,6 +8,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
     set -e -x -u
     sudo apt-get update
+	sudo apt-get -f bridge-utils
     # Install Golang
     wget --quiet https://storage.googleapis.com/golang/go1.9.1.linux-amd64.tar.gz
     sudo tar -zxf go1.9.1.linux-amd64.tar.gz -C /usr/local/

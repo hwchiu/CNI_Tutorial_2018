@@ -4,13 +4,31 @@ import (
 	"fmt"
 	"encoding/json"
 
+	"github.com/vishvananda/netlink"
 	"github.com/containernetworking/cni/pkg/skel"
 	"github.com/containernetworking/cni/pkg/version"
 )
 
 type SimpleBridge struct {
-	BrigdeName string `json:"bridgeName"`
+	BridgeName string `json:"bridgeName"`
 	IP string `json:"ip"`
+}
+
+func createBridge(name string) error {
+	br := &netlink.Bridge{
+		LinkAttrs: netlink.LinkAttrs{
+			Name: name,
+			MTU:  1500,
+			// Let kernel use default txqueuelen; leaving it unset
+			// means 0, and a zero-length TX queue messes up FIFO
+			// traffic shapers which use TX queue length as the
+			// default packet limit
+			TxQLen: -1,
+		},
+	}
+
+	netlink.LinkAdd(br)
+	return nil
 }
 
 func cmdAdd(args *skel.CmdArgs) error {
@@ -25,6 +43,11 @@ func cmdAdd(args *skel.CmdArgs) error {
 		return err
 	}
 	fmt.Println(sb)
+
+	//Create a Linux Bridge
+	createBridge(sb.BridgeName)
+	//Create a Veth Pair
+	//Setup a IP address
 	return nil
 }
 

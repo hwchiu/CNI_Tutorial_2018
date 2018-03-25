@@ -1,3 +1,5 @@
 {
-	"name": "mynet"
+	"name": "mynet",
+	"BridgeName": "test",
+	"IP": "1.2.3.4"
 }

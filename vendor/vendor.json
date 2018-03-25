@@ -1,0 +1,37 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "R0bGFjBQtwoxGvks8WjtaxKfhRE=",
+			"path": "github.com/containernetworking/cni/pkg/skel",
+			"revision": "a700ea864b5f1852d179ce83e8bc169f0b4a0ef4",
+			"revisionTime": "2018-03-07T16:29:29Z"
+		},
+		{
+			"checksumSHA1": "kyeaxrxhMl3XETXxYfjP5dUeMYY=",
+			"path": "github.com/containernetworking/cni/pkg/types",
+			"revision": "a700ea864b5f1852d179ce83e8bc169f0b4a0ef4",
+			"revisionTime": "2018-03-07T16:29:29Z"
+		},
+		{
+			"checksumSHA1": "lmLYXYR/twmBu+6U678QNF+BQlQ=",
+			"path": "github.com/containernetworking/cni/pkg/types/020",
+			"revision": "a700ea864b5f1852d179ce83e8bc169f0b4a0ef4",
+			"revisionTime": "2018-03-07T16:29:29Z"
+		},
+		{
+			"checksumSHA1": "r6qX7lyz4pweijiXjWMcxvm4wQQ=",
+			"path": "github.com/containernetworking/cni/pkg/types/current",
+			"revision": "a700ea864b5f1852d179ce83e8bc169f0b4a0ef4",
+			"revisionTime": "2018-03-07T16:29:29Z"
+		},
+		{
+			"checksumSHA1": "Y9KLxL9fFDnFHaDGOUfDkcbyV0U=",
+			"path": "github.com/containernetworking/cni/pkg/version",
+			"revision": "a700ea864b5f1852d179ce83e8bc169f0b4a0ef4",
+			"revisionTime": "2018-03-07T16:29:29Z"
+		}
+	],
+	"rootPath": "github.com/hwchiu/CNI_Tutorial_2018"
+}

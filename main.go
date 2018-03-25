@@ -1,20 +1,24 @@
 package main
 
 import (
-	"fmt"
 	"encoding/json"
+	"fmt"
+	"syscall"
 
-	"github.com/vishvananda/netlink"
 	"github.com/containernetworking/cni/pkg/skel"
+	"github.com/containernetworking/cni/pkg/types/current"
 	"github.com/containernetworking/cni/pkg/version"
+	"github.com/containernetworking/plugins/pkg/ip"
+	"github.com/containernetworking/plugins/pkg/ns"
+	"github.com/vishvananda/netlink"
 )
 
 type SimpleBridge struct {
 	BridgeName string `json:"bridgeName"`
-	IP string `json:"ip"`
+	IP         string `json:"ip"`
 }
 
-func createBridge(name string) error {
+func createBridge(name string) (*netlink.Bridge, error) {
 	br := &netlink.Bridge{
 		LinkAttrs: netlink.LinkAttrs{
 			Name: name,
@@ -27,7 +31,62 @@ func createBridge(name string) error {
 		},
 	}
 
-	netlink.LinkAdd(br)
+	err := netlink.LinkAdd(br)
+	if err != nil && err != syscall.EEXIST {
+		return nil, err
+	}
+
+	//Fetch the bridge Object, we need to use it for the veth
+	l, err := netlink.LinkByName(name)
+	if err != nil {
+		return nil, fmt.Errorf("could not lookup %q: %v", name, err)
+	}
+	newBr, ok := l.(*netlink.Bridge)
+	if !ok {
+		return nil, fmt.Errorf("%q already exists but is not a bridge", name)
+	}
+
+	if err := netlink.LinkSetUp(br); err != nil {
+		return nil, err
+	}
+
+	return newBr, nil
+}
+
+func setupVeth(netns ns.NetNS, br *netlink.Bridge, ifName string) error {
+	guestIface := &current.Interface{}
+	hostIface := &current.Interface{}
+	mtu := 1500
+	err := netns.Do(func(hostNS ns.NetNS) error {
+		// create the veth pair in the container and move host end into host netns
+		hostVeth, containerVeth, err := ip.SetupVeth(ifName, mtu, hostNS)
+		if err != nil {
+			return err
+		}
+		guestIface.Name = containerVeth.Name
+		guestIface.Mac = containerVeth.HardwareAddr.String()
+		guestIface.Sandbox = netns.Path()
+		hostIface.Name = hostVeth.Name
+		return nil
+	})
+	//
+	fmt.Println(hostIface)
+	if err != nil {
+		return err
+	}
+
+	// need to lookup hostVeth again as its index has changed during ns move
+	hostVeth, err := netlink.LinkByName(hostIface.Name)
+	if err != nil {
+		return fmt.Errorf("failed to lookup %q: %v", hostIface.Name, err)
+	}
+	hostIface.Mac = hostVeth.Attrs().HardwareAddr.String()
+
+	// connect host veth end to the bridge
+	if err := netlink.LinkSetMaster(hostVeth, br); err != nil {
+		return fmt.Errorf("failed to connect %q to bridge %v: %v", hostVeth.Attrs().Name, br.Attrs().Name, err)
+	}
+
 	return nil
 }
 
@@ -45,8 +104,20 @@ func cmdAdd(args *skel.CmdArgs) error {
 	fmt.Println(sb)
 
 	//Create a Linux Bridge
-	createBridge(sb.BridgeName)
+	br, err := createBridge(sb.BridgeName)
+	if err != nil {
+		return err
+	}
+
 	//Create a Veth Pair
+	///Get the NS Object
+	netns, err := ns.GetNS(args.Netns)
+	if err != nil {
+		return err
+	}
+	if err := setupVeth(netns, br, args.IfName); err != nil {
+		return err
+	}
 	//Setup a IP address
 	return nil
 }

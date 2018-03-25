@@ -33,6 +33,36 @@
 			"revisionTime": "2018-03-07T16:29:29Z"
 		},
 		{
+			"checksumSHA1": "RsR3ZEQspAu4G4vkg5S4whTnjq4=",
+			"path": "github.com/containernetworking/plugins/pkg/ip",
+			"revision": "e590fca5ae22f9c1b6d2f27efd779b11b55400ee",
+			"revisionTime": "2018-03-21T13:28:55Z"
+		},
+		{
+			"checksumSHA1": "umfzSifCgODa2RhhkS8/cjw0WjU=",
+			"path": "github.com/containernetworking/plugins/pkg/ns",
+			"revision": "e590fca5ae22f9c1b6d2f27efd779b11b55400ee",
+			"revisionTime": "2018-03-21T13:28:55Z"
+		},
+		{
+			"checksumSHA1": "rUAk+nce6eDIWtYo/QYIoqlTfrY=",
+			"path": "github.com/containernetworking/plugins/pkg/utils/hwaddr",
+			"revision": "e590fca5ae22f9c1b6d2f27efd779b11b55400ee",
+			"revisionTime": "2018-03-21T13:28:55Z"
+		},
+		{
+			"checksumSHA1": "XThyw/FZ+eIbebe6zQrpJuIxHgw=",
+			"path": "github.com/coreos/go-iptables/iptables",
+			"revision": "b5b1876b170881a8259f036445ee89c8669db386",
+			"revisionTime": "2018-02-21T14:29:34Z"
+		},
+		{
+			"checksumSHA1": "bChhZmbFGhl0mZ8gAug0C13z3zE=",
+			"path": "github.com/safchain/ethtool",
+			"revision": "79559b488d8848b53a8e34c330140c3fc37ee246",
+			"revisionTime": "2018-03-08T07:53:50Z"
+		},
+		{
 			"checksumSHA1": "4e6zimNtN3Qh2EIBu4JFDwP2GlY=",
 			"path": "github.com/vishvananda/netlink",
 			"revision": "41009d533ba0788a139b0b6ef38923a23b3766d3",

@@ -6,8 +6,15 @@ A example repository about how to write your own CNI (Container Network Interfac
 go build .
 
 ## Setup a netns and use the CNI to handle the IP address
+ip netns add ns1
+
 
 ## Execute a CNI
 ```
-$ sudo CNI_COMMAND=ADD CNI_CONTAINERID=ns1 CNI_NETNS=/var/run/netns/ns1 CNI_IFNAME=eth0 CNI_PATH=`pwd` .main < config
+$ sh test.sh
+$ brctl show 
+$ ip netns exec ns1 ifconfig -a
 ```
+
+## Delete a netns
+ip netnd del ns1

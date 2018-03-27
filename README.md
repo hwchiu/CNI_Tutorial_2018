@@ -18,3 +18,7 @@ $ ip netns exec ns1 ifconfig -a
 
 ## Delete a netns
 ip netnd del ns1
+
+## Delete a bridge
+ifconfig test down
+brctl delbr test

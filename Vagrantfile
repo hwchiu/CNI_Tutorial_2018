@@ -2,13 +2,11 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "bento/ubuntu-16.04"
   config.vm.hostname = 'dev'
-
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
     set -e -x -u
-    sudo apt-get update
-    sudo apt-get install -y bridge-utils
+    sudo apt-get update && sudo apt-get install -y bridge-utils
     # Install Golang
     wget --quiet https://storage.googleapis.com/golang/go1.9.1.linux-amd64.tar.gz
     sudo tar -zxf go1.9.1.linux-amd64.tar.gz -C /usr/local/
@@ -29,9 +27,10 @@ Vagrant.configure("2") do |config|
     sudo tar -zxf cni-plugins-amd64-v0.6.0.tgz -C /opt/cni/bin
     rm -rf /home/vagrant/cni-plugins-amd64-v0.6.0.tgz /home/vagrant/cni-amd64-v0.6.0.tgz
 
-    #Clone this example repository   
+    # Clone this example repository
     git clone https://github.com/hwchiu/CNI_Tutorial_2018 go/src/github.com/hwchiu/CNI_Tutorial_2018
     go get -u github.com/kardianos/govendor
+    cd go/src/github.com/hwchiu/CNI_Tutorial_2018
     govendor sync
   SHELL
 

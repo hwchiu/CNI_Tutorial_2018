@@ -1,0 +1,6 @@
+steps:
+  - command: go get -u github.com/kardianos/govendor
+    plugins:
+      - docker#v2.0.0:
+          image: "golang:1.11"
+          workdir: /app

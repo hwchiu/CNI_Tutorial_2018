@@ -1,6 +1,8 @@
 steps:
-  - command: go get -u github.com/kardianos/govendor
+  - name: ":golang:"
     plugins:
       - docker#v2.0.0:
+          command: 
+            - "go get -u github.com/kardianos/govendor"
+            - "go test"
           image: "golang:1.11"
-          workdir: /app

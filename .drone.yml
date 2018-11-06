@@ -1,0 +1,11 @@
+workspace:
+  base: /go
+  path: src/github.com/hwchiu/CNI_Tutorial_2018
+
+pipeline:
+  build:
+    image: golang:latest
+    commands:
+      - go get
+      - go build
+      - go test

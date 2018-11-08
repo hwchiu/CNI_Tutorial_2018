@@ -1,8 +1,9 @@
 steps:
   - name: ":golang:"
-    plugins:
-      - docker#v2.0.0:
-          command: 
-            - "go get -u github.com/kardianos/govendor"
-            - "go test"
-          image: "golang:1.11"
+    command: "go get -u github.com/kardianos/govendor"
+    env:
+      BUILDKITE_GOLANG_IMPORT_PATH: "github.com/hwchiu/CNI_Tutorial_2018"
+  - name: "govendor sync"
+    command: "/root/go/bin/govendor sync"
+    env:
+      BUILDKITE_GOLANG_IMPORT_PATH: "github.com/hwchiu/CNI_Tutorial_2018"

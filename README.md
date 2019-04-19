@@ -35,7 +35,7 @@ $ ip netns exec ns1 ifconfig -a
 
 Delete a netns:
 ```sh
-$ ip netnd del ns1
+$ ip netns del ns1
 ```
 
 Delete a bridge:

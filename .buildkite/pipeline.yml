@@ -1,0 +1,9 @@
+steps:
+  - name: ":golang:"
+    command: "go get -u github.com/kardianos/govendor"
+    env:
+      BUILDKITE_GOLANG_IMPORT_PATH: "github.com/hwchiu/CNI_Tutorial_2018"
+  - name: "govendor sync"
+    command: "/root/go/bin/govendor sync"
+    env:
+      BUILDKITE_GOLANG_IMPORT_PATH: "github.com/hwchiu/CNI_Tutorial_2018"
